@@ -1,2 +1,7 @@
 # python exclusions
 __pycache__/
+.venv
+
+# project specific
+.env.dev
+.env.prod

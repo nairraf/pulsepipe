@@ -1,0 +1,43 @@
+version: '3'
+
+tasks:
+  up:
+    desc: Start Pulsepipe in selected environment
+    vars:
+      ENV:
+        sh: echo ${ENV:-dev}
+    cmds:
+      - echo "Starting Pulsepipe in {{.ENV}} mode..."
+      - docker compose -f compose/docker-compose.{{.ENV}}.yml --env-file compose/.env.{{.ENV}} up -d
+
+  down:
+    desc: Stop Pulsepipe
+    vars:
+      ENV:
+        sh: echo ${ENV:-dev}
+    cmds:
+      - docker compose -f compose/docker-compose.{{.ENV}}.yml down
+
+  rebuild:
+    desc: Rebuild containers
+    vars:
+      ENV:
+        sh: echo ${ENV:-dev}
+    cmds:
+      - docker compose -f compose/docker-compose.{{.ENV}}.yml --env-file compose/.env.{{.ENV}} build --no-cache
+
+  logs:
+    desc: View logs
+    vars:
+      ENV:
+        sh: echo ${ENV:-dev}
+    cmds:
+      - docker compose -f compose/docker-compose.{{.ENV}}.yml logs -f
+
+  backup:
+    desc: Backup Qdrant volume
+    vars:
+      ENV:
+        sh: echo ${ENV:-dev}
+    cmds:
+      - docker run --rm -v qdrant_data:/data -v {{.PWD}}:/backup busybox tar -zcvf /backup/qdrant_backup.tar.gz /data
