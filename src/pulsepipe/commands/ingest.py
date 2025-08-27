@@ -1,9 +1,4 @@
 import typer
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
-from rich.live import Live
-from rich.spinner import Spinner
-from rich.panel import Panel
-from rich.console import Console
 import time
 from pulsepipe.ui.pulsepipeui import PulsepipeUI
 
@@ -14,14 +9,6 @@ app = typer.Typer()
 def run(
     source: str = typer.Option("default","--source", help="source to ingest")
 ):
-    # with Progress() as progress:
-    #     task = progress.add_task("[green]Downloading...", total=100)
-
-    #     for i in range(100):
-    #         time.sleep(0.1)
-    #         progress.update(task, advance=1)
-    
-    # typer.echo(f"Ingestion of {source} complete")
     ui = PulsepipeUI()
     ui.banner(banner_text="Downloader", simple=True)
     ui.task_start(description="downloader", total=100, bar=True)
