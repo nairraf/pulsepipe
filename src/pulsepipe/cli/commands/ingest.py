@@ -1,6 +1,6 @@
 import typer
 import time
-from pulsepipe.ui.pulsepipeui import PulsepipeUI
+from pulsepipe.cli.ui.pulsepipeui import PulsepipeUI
 
 app = typer.Typer()
 

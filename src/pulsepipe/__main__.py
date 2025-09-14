@@ -1,4 +1,4 @@
-from pulsepipe.cli import app
+from pulsepipe.cli.main import app
 
 if __name__ == "__main__":
     app()
